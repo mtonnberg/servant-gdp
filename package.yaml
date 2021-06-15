@@ -1,0 +1,34 @@
+name: servant-gdp
+homepage: https://github.com/mtonnberg/servant-gdp#readme
+git: https://github.com/mtonnberg/servant-gdp
+version: 0.0.1.0
+license: BSD3
+author: Mikael Tönnberg
+maintainer: mikael@carboncloud.com
+copyright: 2021 Mikael Tönnberg
+category: Lib
+build-type: Simple
+extra-source-files: README.md
+synopsis: Use Servant and GDP together to create expressive web API types
+description:
+  Servant (A web api framework) and GDP (Ghosts of Departed Proofs) is here combined to allow for quite expressive API declarations.
+  This is achieved by parsing captured API-input as named variables, making the named contexts span the entire request.
+  This in turn, makes it possible to express a lot of domain knowledge/requirements  in the Servant API type.
+  For an example of how this can look like check out https://github.com/mtonnberg/gdp-demo
+
+dependencies:
+  - base >= 4.7 && < 5
+  - aeson >= 1.5 && < 1.6
+  - gdp < 0.1
+  - servant-server >= 0.18 && < 0.19
+  - text >= 1.2 && < 1.3 
+
+library:
+  source-dirs:
+    - src
+  exposed-modules:
+    - Servant.GDP
+  other-modules:
+    - Servant.GDP.ApiNamedInput
+    - Servant.GDP.HumanLanguage
+    - Servant.GDP.ProveInIsolation

@@ -1,0 +1,11 @@
+flags: {}
+nix:
+  packages: [zlib]
+
+packages:
+  - .
+
+resolver: lts-17.9
+
+ghc-options:
+  "$everything": -haddock

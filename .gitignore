@@ -1,0 +1,14 @@
+.stack-work
+reports/*.xml
+*.db
+testdb*
+*.db*
+app.config
+stack.yaml.lock
+serve.sh
+*.cabal
+TAGS
+.hie
+stan.html
+data
+dist-newstyle
