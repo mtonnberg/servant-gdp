@@ -1,7 +1,8 @@
 # Servant ❤️ GDP
 
 ## In a nutshell
-To get more productive and reduce the number of needed tests we can combine [Servant](https://haskell-servant.github.io/) (A web api framework) and [GDP](https://kataskeue.com/gdp.pdf) (Ghosts of Departed Proofs) to allow for quite expressive API declarations. This leads to more correct APIs. [See a full example](https://github.com/mtonnberg/gdp-demo).
+To get more productive, produce high-quality web APIs and reduce the number of needed tests we can combine [Servant](https://haskell-servant.github.io/) (A web api framework) and [GDP](https://kataskeue.com/gdp.pdf) (Ghosts of Departed Proofs). This allows for quite expressive API declarations which leads to more [knowledge captured](https://carboncloud.com/2020/12/07/tech-knowledge-as-code/).
+[See a full example](https://github.com/mtonnberg/gdp-demo).
 
 ```haskell
 -- http://localhost/div/10/5 would return 2
