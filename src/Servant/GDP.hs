@@ -12,13 +12,11 @@
 
 module Servant.GDP
   ( module Servant.GDP.ApiNamedInput,
-    module Servant.GDP.HumanLanguage,
     module Servant.GDP.ProveInIsolation,
   )
 where
 
 import Servant.GDP.ApiNamedInput
-import Servant.GDP.HumanLanguage
 import Servant.GDP.ProveInIsolation
 
 import Data.Aeson (ToJSON, toJSON)

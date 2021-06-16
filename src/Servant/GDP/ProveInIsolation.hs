@@ -13,25 +13,38 @@
 module Servant.GDP.ProveInIsolation (ProvableInIsolation, proveInIsolation) where
 
 import Data.Text (Text)
-import GDP (Proof)
+import GDP (Proof, introAnd, introOrL, introOrR, (...), type (&&), type (:::), type (||), type (~~))
 import Servant
   ( FromHttpApiData,
     parseUrlPiece,
   )
-import Servant.GDP.HumanLanguage
 
--- | Check if property P holds for value a or not
+-- | Check if property P holds for value a or not.
+-- Is used to parse a value from the request with a required proof
 class ProvableInIsolation a p where
   proveInIsolation :: a -> Either Text (Proof p)
 
+instance (ProvableInIsolation a p1, ProvableInIsolation a p2) => ProvableInIsolation a (p1 && p2) where
+  proveInIsolation x = do
+    p1 <- proveInIsolation x
+    p2 <- proveInIsolation x
+    return $ introAnd p1 p2
+
+instance (ProvableInIsolation a p1, ProvableInIsolation a p2) => ProvableInIsolation a (p1 || p2) where
+  proveInIsolation x = do
+    case (proveInIsolation x, proveInIsolation x) of
+      (Right p1, _) -> return $ introOrL p1
+      (_, Right p2) -> return $ introOrR p2
+      (Left e1, Left e2) -> Left $ e1 <> e2
+
 instance
-  ( FromHttpApiData (a `Named` n),
+  ( FromHttpApiData (a ~~ n),
     FromHttpApiData a,
-    ProvableInIsolation (a `Named` n) p
+    ProvableInIsolation (a ~~ n) p
   ) =>
-  FromHttpApiData (a `Named` n `SuchThat` p)
+  FromHttpApiData (a ~~ n ::: p)
   where
   parseUrlPiece t =
     do
-      (j :: a `Named` n) <- parseUrlPiece t
-      (j `withProof`) <$> proveInIsolation j
+      (j :: a ~~ n) <- parseUrlPiece t
+      (j ...) <$> proveInIsolation j
